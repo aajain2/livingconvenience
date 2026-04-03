@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#F4EEE6"/>
+  <title>About — Living Convenience</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <style>
+    @font-face {
+      font-family: MagicUIPro;
+      src: url(assets/magicui.woff2) format("woff2");
+      font-display: swap; font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: Ninna;
+      src: url(assets/ninna-trials/Ninna-Regular.otf) format("opentype");
+      font-display: swap; font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: Ninna;
+      src: url(assets/ninna-trials/Ninna-Italic.otf) format("opentype");
+      font-display: swap; font-weight: 400; font-style: italic;
+    }
+
+    :root {
+      --font-magic-ui: "MagicUIPro", sans-serif;
+      --font-ninna: "Ninna", serif;
+      --color-background: #F4EEE6;
+      --color-beige: #f7f1ea;
+      --color-brown: #2b1b1b;
+      --color-text-dark: #2e1a1b;
+      --color-light-grey: #fcfbf7;
+      --color-green-acid: #42e65c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 10px; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-magic-ui); background: var(--color-background); color: var(--color-text-dark); }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar — same as index */
+    .navbar-wrapper { position: fixed; top: 0; right: 0; left: 0; z-index: 50; display: flex; justify-content: center; pointer-events: none; }
+    .navbar { position: absolute; top: 1.6rem; width: 64rem; max-width: calc(100% - 3.2rem); pointer-events: auto; }
+    .navbar-shell { position: relative; width: 100%; }
+    .navbar-glass { position: absolute; top: 0; left: 0; width: 100%; border-radius: 2.4rem; background: rgba(235,233,230,0.55); backdrop-filter: blur(48px); -webkit-backdrop-filter: blur(48px); z-index: 0; height: 4.8rem; }
+    .navbar-topbar { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; height: 4.8rem; padding: 0 0.4rem; opacity: 0; animation: navClipIn 1.6s cubic-bezier(0.19,1,0.22,1) 0.3s forwards; }
+    @keyframes navClipIn { from { clip-path: inset(0% 48% 0% 48% round 2rem); opacity: 0; } to { clip-path: inset(0% 0% 0% 0% round 2rem); opacity: 1; } }
+    .navbar-side { display: flex; align-items: center; }
+    .navbar-link { font-family: var(--font-magic-ui); font-size: 1.35rem; letter-spacing: 0.02em; padding: 0 1.6rem; height: 3.6rem; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--color-text-dark); white-space: nowrap; font-feature-settings: "dlig" on; position: relative; border-radius: 999px; transition: opacity 0.2s; }
+    .navbar-link .pill-bg { position: absolute; inset: 0; border-radius: 999px; background: var(--color-light-grey); opacity: 0; transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1); z-index: -1; }
+    .navbar-link:hover .pill-bg { opacity: 1; }
+    .navbar-logo { display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 0.8rem; cursor: pointer; }
+    .navbar-logo svg { height: 1.4rem; width: auto; }
+
+    
+    /* Dropdown */
+    .nav-dropdown {
+      position: relative; z-index: 5;
+      padding: 0 0.8rem 0.8rem;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .nav-dropdown.open {
+      opacity: 1; transform: translateY(0);
+      pointer-events: auto;
+      max-height: calc(100vh - 8rem);
+      overflow-y: auto; overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-dropdown.open::-webkit-scrollbar { display: none; }
+    .nav-dropdown-panel { display: none; }
+    .nav-dropdown-panel.active { display: block; }
+    .studio-card {
+      display: block; border-radius: 2rem; overflow: hidden;
+      height: 20rem; margin-bottom: 0.8rem;
+      cursor: pointer; text-decoration: none; color: inherit;
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.19,1,0.22,1);
+    }
+    .studio-card:last-child { margin-bottom: 0; }
+    .studio-card:hover { transform: scale(0.985); }
+    .studio-card:hover .studio-card-img { transform: scale(1.05); }
+    .studio-card-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 1;
+      transition: transform 0.6s cubic-bezier(0.19,1,0.22,1);
+    }
+    .studio-card-label {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 100%;
+    }
+    .studio-card-btn {
+      font-family: var(--font-magic-ui);
+      font-size: 1.2rem; letter-spacing: 0.02em;
+      padding: 0.6rem 1.4rem; border-radius: 999px;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .studio-card-btn.light { background: rgba(255,255,255,0.25); color: #fff; }
+    .nav-dropdown-panel.active > * {
+      opacity: 0; transform: translateY(-20px) scale(0.98);
+      animation: dropIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .nav-dropdown-panel.active > *:nth-child(1) { animation-delay: 0.06s; }
+    .nav-dropdown-panel.active > *:nth-child(2) { animation-delay: 0.13s; }
+    .nav-dropdown-panel.active > *:nth-child(3) { animation-delay: 0.20s; }
+    .nav-dropdown-panel.active > *:nth-child(4) { animation-delay: 0.27s; }
+    .nav-dropdown-panel.active > *:nth-child(5) { animation-delay: 0.34s; }
+    .nav-dropdown-panel.active > *:nth-child(6) { animation-delay: 0.41s; }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .navbar-glass {
+      transition: height 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-radius 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* About content */
+    .about-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16rem 2rem 8rem;
+    }
+    .about-content {
+      max-width: 62rem;
+      text-align: center;
+    }
+    .about-heading {
+      font-family: Ninna, Georgia, serif;
+      font-size: 3rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 2.4rem;
+      color: #313131;
+      text-transform: uppercase;
+    }
+    .about-body {
+      font-family: var(--font-magic-ui);
+      font-size: 1.7rem;
+      line-height: 1.6;
+      letter-spacing: -0.002em;
+      color: var(--color-text-dark);
+      margin-bottom: 2.4rem;
+    }
+    .about-italic {
+      font-family: Ninna, Georgia, serif;
+      font-style: italic;
+      font-size: 1.7rem;
+      line-height: 1.6;
+      color: var(--color-text-dark);
+      margin-bottom: 3rem;
+    }
+    .about-email {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem 2.8rem;
+      border-radius: 10rem;
+      background: var(--color-brown);
+      color: #fff;
+      font-family: var(--font-magic-ui);
+      font-size: 1.4rem;
+      letter-spacing: 0.01em;
+      transition: opacity 0.3s;
+    }
+    .about-email:hover { opacity: 0.85; }
+
+    /* Fade in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.2s; }
+    .fade-in:nth-child(2) { animation-delay: 0.35s; }
+    .fade-in:nth-child(3) { animation-delay: 0.5s; }
+    .fade-in:nth-child(4) { animation-delay: 0.65s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 767px) {
+      .about-page { padding: 12rem 2rem 6rem; }
+      .about-heading { font-size: 2.2rem; }
+      .about-content { max-width: 100%; }
+      .footer-top { flex-direction: column; }
+      .footer-nav { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--color-brown);
+      color: var(--color-beige);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6rem;
+      overflow: clip;
+      padding: 6.4rem 3.2rem 4.8rem;
+    }
+    .footer-top {
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 3.2rem;
+    }
+    .footer-nav ul {
+      list-style: none;
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 12rem;
+    }
+    .footer-nav h3 {
+      font-family: var(--font-magic-ui);
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      opacity: 0.5;
+      line-height: 140%;
+    }
+    .footer-nav li a {
+      font-family: var(--font-magic-ui);
+      font-size: 1.2rem;
+      line-height: 200%;
+      color: var(--color-beige);
+      transition: opacity 0.2s;
+    }
+    .footer-nav li a:hover { opacity: 0.8; }
+    .footer-left {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .footer-newsletter form {
+      display: flex;
+      height: 5.6rem;
+      gap: 0.4rem;
+      border-radius: 10rem;
+      border: 1px solid rgba(245, 240, 235, 0.2);
+      padding: 0.3rem 0.4rem 0.3rem 2rem;
+    }
+    .footer-newsletter input {
+      flex: 1;
+      background: transparent;
+      color: var(--color-beige);
+      font-family: var(--font-magic-ui);
+      font-size: 1.4rem;
+      min-width: 15rem;
+      border: none;
+      outline: none;
+    }
+    .footer-newsletter input::placeholder { color: rgba(245, 240, 235, 0.5); }
+    .footer-newsletter button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 4.8rem;
+      padding: 0 2rem;
+      border-radius: 10rem;
+      border: none;
+      background-color: rgba(245, 240, 235, 0.15);
+      color: var(--color-beige);
+      cursor: pointer;
+      font-family: var(--font-magic-ui);
+      font-size: 1.4rem;
+      transition: opacity 0.2s;
+    }
+    .footer-newsletter button:hover { opacity: 0.9; }
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      position: relative;
+    }
+    .footer-large-text {
+      width: 100%;
+      opacity: 0.15;
+      display: block;
+    }
+    .footer-large-text text {
+      font-family: var(--font-ninna);
+      font-weight: 400;
+      text-transform: uppercase;
+      fill: var(--color-beige);
+    }
+    .footer-copyright {
+      font-family: var(--font-magic-ui);
+      font-size: 1.1rem;
+      opacity: 0.4;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar-wrapper">
+    <nav class="navbar" id="nav" onmouseleave="navClose()">
+      <div class="navbar-shell">
+        <div class="navbar-glass" id="navGlass"></div>
+        <div class="navbar-topbar">
+          <div class="navbar-side">
+            <a class="navbar-link" data-menu="services" onmouseenter="navOpen('services',this)"><span class="pill-bg"></span>Services</a>
+            <a class="navbar-link" href="index.html" onmouseenter="navClose()"><span class="pill-bg"></span>Projects</a>
+          </div>
+          <a class="navbar-logo" href="index.html" onmouseenter="navClose()">
+            <span style="font-family:var(--font-ninna);font-weight:400;font-size:1.4rem;letter-spacing:0.02em;text-transform:uppercase">Living Convenience</span>
+          </a>
+          <div class="navbar-side">
+            <a class="navbar-link" href="about.html" onmouseenter="navClose()"><span class="pill-bg"></span>About</a>
+            <a class="navbar-link" href="#" onmouseenter="navClose()"><span class="pill-bg"></span>Contact</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" id="navDrop">
+          <div class="nav-dropdown-panel" id="panel-services">
+            <a class="studio-card" href="#" style="background:transparent;"><img class="studio-card-img" src="assets/service-network.png" alt=""/><div class="studio-card-label"><span class="studio-card-btn light">Network</span></div></a>
+            <a class="studio-card" href="#" style="background:transparent;"><img class="studio-card-img" src="assets/service-lighting.png" alt=""/><div class="studio-card-label"><span class="studio-card-btn light">Light</span></div></a>
+            <a class="studio-card" href="#" style="background:transparent;"><img class="studio-card-img" src="assets/service-sound.png" alt=""/><div class="studio-card-label"><span class="studio-card-btn light">Sound</span></div></a>
+            <a class="studio-card" href="#" style="background:transparent;"><img class="studio-card-img" src="assets/service-security.png" alt=""/><div class="studio-card-label"><span class="studio-card-btn light">Security</span></div></a>
+            <a class="studio-card" href="#" style="background:transparent;"><img class="studio-card-img" src="assets/service-climate.png" alt=""/><div class="studio-card-label"><span class="studio-card-btn light">Climate</span></div></a>
+            <a class="studio-card" href="#" style="background:transparent;"><img class="studio-card-img" src="assets/service-intelligence.png" alt=""/><div class="studio-card-label"><span class="studio-card-btn light">Intelligence</span></div></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ABOUT CONTENT -->
+  <main class="about-page">
+    <div class="about-content">
+      <h1 class="about-heading fade-in">35 years of making complex systems feel simple</h1>
+
+      <p class="about-body fade-in">We started in commercial technology, building Fortune 500 infrastructure, Silicon Valley startups, and distributed systems engineered to never go down. Networking, automation, data architecture, telephony, construction, facilities: we built and operated it all across three decades and countless technology cycles. When we turned that experience toward the home, we brought the same enterprise-grade rigor with us. Every device purchased and stress-tested in-house. Every cable run labeled and documented. Every integration verified for reliability and interoperability before it touches a client's property. We are vendor-agnostic by principle, with no single manufacturer lock-in and no proprietary dead ends. We design modular systems that start wherever you are and scale to wherever you want to go, whether that's a single room or a fully automated residence. And as the home shifts from smart to genuinely intelligent, with voice agents, predictive automation, on-device AI, and open protocols like Matter and Thread, every system we deploy today is architected for what's arriving tomorrow. We serve the San Francisco Bay Area and we are in this for the long term. Installation is the beginning of the relationship, not the end.</p>
+
+      <a class="about-email fade-in" href="mailto:info@livingconvenience.com">info@livingconvenience.com</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-top">
+      <nav class="footer-nav">
+        <ul>
+          <h3 style="opacity:0.5">Services</h3>
+          <li><a href="#">Network</a></li>
+          <li><a href="#">Light</a></li>
+          <li><a href="#">Sound</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Climate</a></li>
+          <li><a href="#">Intelligence</a></li>
+        </ul>
+        <ul>
+          <h3 style="opacity:0.5">Company</h3>
+          <li><a href="#">Projects</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <ul>
+          <h3 style="opacity:0.5">Service Area</h3>
+          <li><a href="#">San Francisco</a></li>
+          <li><a href="#">Peninsula</a></li>
+          <li><a href="#">South Bay</a></li>
+          <li><a href="#">East Bay</a></li>
+        </ul>
+        <ul>
+          <h3 style="opacity:0.5">Connect</h3>
+          <li><a href="https://www.instagram.com/livingconvenience" target="_blank">Instagram</a></li>
+          <li><a href="tel:+14156523100">(415) 652-3100</a></li>
+          <li><a href="mailto:info@livingconvenience.com">info@livingconvenience.com</a></li>
+        </ul>
+      </nav>
+      <div class="footer-left">
+        <div class="footer-newsletter">
+          <form onsubmit="return false;">
+            <input type="email" placeholder="Email" name="email"/>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <svg class="footer-large-text" viewBox="0 0 1000 100" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="82" font-size="100" textLength="1000" lengthAdjust="spacingAndGlyphs">LIVING CONVENIENCE</text>
+      </svg>
+      <p class="footer-copyright">&copy; 2026 Living Convenience &bull; All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    const glass = document.getElementById('navGlass');
+    const drop = document.getElementById('navDrop');
+    const panels = ['services'];
+    let curMenu = null, curLink = null;
+
+    function navOpen(name, el) {
+      if (curMenu === name) return;
+      if (curLink) curLink.classList.remove('active');
+      el.classList.add('active');
+      curLink = el;
+      panels.forEach(p => {
+        const panel = document.getElementById('panel-' + p);
+        if (panel) panel.classList.remove('active');
+      });
+      const target = document.getElementById('panel-' + name);
+      if (target) target.classList.add('active');
+      drop.classList.add('open');
+      curMenu = name;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const contentH = target ? target.scrollHeight : 0;
+          const totalH = 48 + 8 + contentH + 16;
+          const maxH = window.innerHeight - 32;
+          glass.style.height = Math.min(totalH, maxH) + 'px';
+          glass.classList.add('expanded');
+        });
+      });
+    }
+
+    function navClose() {
+      if (!curMenu) return;
+      drop.classList.remove('open');
+      panels.forEach(p => {
+        const panel = document.getElementById('panel-' + p);
+        if (panel) panel.classList.remove('active');
+      });
+      if (curLink) curLink.classList.remove('active');
+      curLink = null;
+      curMenu = null;
+      glass.style.height = '4.8rem';
+      glass.classList.remove('expanded');
+    }
+  </script>
+</body>
+</html>
