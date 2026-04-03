@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#F4EEE6"/>
+  <title>Heritage Courtyard — Living Convenience</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <style>
+    @font-face {
+      font-family: MagicUIPro;
+      src: url(assets/magicui.woff2) format("woff2");
+      font-display: swap; font-weight: 400; font-style: normal;
+    }
+    @font-face {
+      font-family: Ninna;
+      src: url(assets/ninna-trials/Ninna-Regular.otf) format("opentype");
+      font-display: swap; font-weight: 400; font-style: normal;
+    }
+
+    :root {
+      --font-magic-ui: "MagicUIPro", sans-serif;
+      --font-ninna: "Ninna", serif;
+      --color-background: #F4EEE6;
+      --color-beige: #f7f1ea;
+      --color-brown: #2b1b1b;
+      --color-text-dark: #2e1a1b;
+      --color-light-grey: #fcfbf7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 10px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { font-family: var(--font-magic-ui); background: var(--color-background); color: var(--color-text-dark); }
+    a { text-decoration: none; color: inherit; }
+    h1, h2, h3 { text-transform: uppercase; }
+
+    .project-hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .project-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .project-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 3.5rem;
+    }
+    .project-title {
+      font-family: Ninna, Georgia, serif;
+      font-size: clamp(3.2rem, 4.6vw, 6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .project-cta {
+      font-family: Ninna, Georgia, serif;
+      font-size: clamp(3.2rem, 4.6vw, 6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #fff;
+      text-transform: uppercase;
+      align-self: flex-end;
+      transition: opacity 0.3s;
+    }
+    .project-cta:hover { opacity: 0.7; }
+
+    /* ── Case Study ── */
+    .case-study { max-width: 100%; margin: 0 auto; padding: 6rem 4vw 10rem; }
+    .case-intro {
+      text-align: center;
+      max-width: 72rem;
+      margin: 0 auto 8rem;
+      font-family: var(--font-magic-ui);
+      font-size: 1.7rem;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
+      color: var(--color-text-dark);
+    }
+    .case-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 10rem;
+      align-items: center;
+    }
+    .case-row .case-img-slot {
+      aspect-ratio: 3 / 4;
+    }
+    .case-row.reverse { direction: rtl; }
+    .case-row.reverse > * { direction: ltr; }
+    .case-img-slot {
+      width: 100%;
+      background: #c8c3bc;
+      border-radius: 0;
+    }
+    .case-text {
+      font-family: var(--font-magic-ui);
+      font-size: 1.7rem;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
+      color: var(--color-text-dark);
+      text-align: center;
+      padding: 0 6rem;
+    }
+    .case-pair {
+      display: grid;
+      grid-template-columns: 35% 55%;
+      justify-content: space-between;
+      margin-bottom: 10rem;
+      align-items: start;
+    }
+    .case-pair-left {
+      display: flex;
+      flex-direction: column;
+      margin-top: 12rem;
+    }
+    .case-pair-left .case-img-slot {
+      aspect-ratio: 3 / 4;
+    }
+    .case-pair-caption {
+      font-family: var(--font-magic-ui);
+      font-size: 1.7rem;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
+      color: var(--color-text-dark);
+      text-align: center;
+      margin-top: 2.4rem;
+    }
+    .case-pair-right .case-img-slot {
+      aspect-ratio: 4 / 3;
+    }
+    .case-closing {
+      text-align: center;
+      max-width: 72rem;
+      margin: 0 auto;
+      font-family: var(--font-magic-ui);
+      font-size: 1.7rem;
+      line-height: 1.6;
+      letter-spacing: 0.005em;
+      color: var(--color-text-dark);
+    }
+
+    @media (max-width: 767px) {
+      .project-hero-overlay { padding: 2rem; }
+      .project-title { font-size: clamp(2rem, 5vw, 3rem); }
+      .project-cta { font-size: clamp(2rem, 5vw, 3rem); }
+      .case-study { padding: 6rem 2rem 8rem; }
+      .case-row { grid-template-columns: 1fr; }
+      .case-row.reverse { direction: ltr; }
+      .case-pair { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <script src="navbar.js"></script>
+
+  <section class="project-hero">
+    <img src="assets/project-2.jpg" alt="Heritage Courtyard"/>
+    <div class="project-hero-overlay">
+      <h1 class="project-title">Heritage Courtyard</h1>
+      <a class="project-cta" href="#details">Learn More</a>
+    </div>
+  </section>
+
+  <section class="case-study" id="details">
+    <p class="case-intro">A newly constructed 8,400-square-foot courtyard residence in Pacific Heights, designed from blueprint stage with a fully integrated technology layer. Every wire, conduit, and device location was coordinated with the architect and builder before the first wall went up, resulting in a home where infrastructure is truly invisible.</p>
+
+    <div class="case-pair">
+      <div class="case-pair-left">
+        <div class="case-img-slot"></div>
+        <p class="case-pair-caption">Built around a central courtyard open to the sky, the home demanded technology that could bridge indoor and outdoor living seamlessly. Concealed infrastructure threads through poured concrete walls and steel framing, with every pathway planned months before construction began.</p>
+      </div>
+      <div class="case-pair-right">
+        <div class="case-img-slot"></div>
+      </div>
+    </div>
+
+    <div class="case-row">
+      <div class="case-img-slot tall"></div>
+      <div class="case-text">
+        <p>A Lutron Ketra natural-light system with over 90 zones delivers tunable white and full-spectrum color across every room, including the courtyard colonnade and rooftop terrace. Fixtures were specified in collaboration with the lighting designer to maintain architectural intent while enabling full scene programmability. The home's audio system comprises 28 Sonance invisible speakers embedded in ceilings and walls, paired with a dedicated amplification rack in the basement mechanical room. The courtyard fountain masks residual noise while four weatherproof landscape speakers extend music outdoors.</p>
+      </div>
+    </div>
+
+    <div class="case-row reverse">
+      <div class="case-img-slot tall"></div>
+      <div class="case-text">
+        <p>A Cisco Meraki network backbone supports over 140 connected devices across four floors, with dedicated VLANs segmenting personal, guest, IoT, and security traffic. Twelve access points provide seamless roaming from the wine cellar to the rooftop, with sub-millisecond handoff between zones. Security integrates eight exterior cameras, a video intercom at both entries, motorized gate control, and glass-break sensors across the courtyard facade. Everything feeds into a single Control4 interface accessible from wall panels, phones, or voice, with automated lockdown scenes for nighttime and travel.</p>
+      </div>
+    </div>
+
+    <p class="case-closing">From the first schematic to the final commissioning walkthrough, every system in this home was designed as architecture, not afterthought. The technology disappears into concrete, glass, and steel, operating silently around a family that simply lives in the space.</p>
+  </section>
+
+  <script src="footer.js"></script>
+</body>
+</html>

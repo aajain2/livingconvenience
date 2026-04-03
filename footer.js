@@ -110,8 +110,13 @@
           <li><a href="services.html#intelligence">Intelligence</a></li>
         </ul>
         <ul>
+          <h3 style="opacity:0.5">Projects</h3>
+          <li><a href="project-spanish-villa.html">Spanish Villa</a></li>
+          <li><a href="project-heritage-courtyard.html">Heritage Courtyard</a></li>
+          <li><a href="project-pacific-northwest.html">Pacific Northwest</a></li>
+        </ul>
+        <ul>
           <h3 style="opacity:0.5">Company</h3>
-          <li><a href="index.html">Projects</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
