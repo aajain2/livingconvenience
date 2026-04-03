@@ -120,7 +120,7 @@
     }
 
     h1, h2, h3 {
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     /* ========== Typography Utilities ========== */
@@ -270,6 +270,7 @@
       align-items: flex-end;
       background: var(--color-background);
       overflow: hidden;
+      
     }
     .hero-landing-inner {
       padding: 0 3.5rem 3.5rem;
@@ -464,7 +465,7 @@
       transition: opacity 0.2s;
       height: 5.6rem;
       border-radius: 10rem;
-      background: transparent;
+      background: rgba(244, 238, 230, 0.65);
       flex: 1;
       min-width: 17.3rem;
       font-family: var(--font-magic-ui);
@@ -688,7 +689,7 @@
 
     .newsletter-form input {
       flex: 1;
-      background: transparent;
+      background: rgba(244, 238, 230, 0.65);
       color: var(--color-brown);
       font-family: var(--font-magic-ui);
       font-size: 1.4rem;
@@ -767,6 +768,7 @@
     .footer-nav h3 {
       font-family: var(--font-magic-ui);
       font-size: 1.2rem;
+      font-weight: 400;
       margin-bottom: 1.2rem;
       opacity: 0.5;
       line-height: 140%;
@@ -1158,21 +1160,22 @@
     .navbar-shell {
       position: relative;
       width: 100%;
+      border-radius: 2.4rem;
     }
-    /* The frosted glass bg that grows */
+    /* The frosted glass bg — now just handles height animation */
     .navbar-glass {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       border-radius: 2.4rem;
-      background: rgba(235, 233, 230, 0.55);
+      background: rgba(221, 213, 206, 0.55);
       backdrop-filter: blur(48px);
       -webkit-backdrop-filter: blur(48px);
       z-index: 0;
       height: 4.8rem;
       transition: height 0.85s cubic-bezier(0.16, 1, 0.3, 1),
                   border-radius 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
+      
     }
     .navbar-glass.expanded {
       /* height set by JS */
@@ -1237,11 +1240,15 @@
     /* ========== Dropdown Area ========== */
     .nav-dropdown {
       position: relative; z-index: 5;
-      padding: 0 0.8rem 0.8rem;
+      padding: 0.8rem 0.8rem 0.8rem;
+      background: rgba(221, 213, 206, 0.55); backdrop-filter: blur(48px); -webkit-backdrop-filter: blur(48px);
+      
+      
+      border-radius: 0 0 2.4rem 2.4rem;
       opacity: 0;
       transform: translateY(-8px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
       pointer-events: none;
       max-height: 0;
       overflow: hidden;
@@ -1352,18 +1359,18 @@
     }
     /* Stagger children on open */
     .nav-dropdown-panel.active > * {
-      opacity: 0; transform: translateY(-20px) scale(0.98);
-      animation: dropIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0; transform: translateY(-40px) scale(0.96);
+      animation: dropIn 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-    .nav-dropdown-panel.active > *:nth-child(1) { animation-delay: 0.06s; }
-    .nav-dropdown-panel.active > *:nth-child(2) { animation-delay: 0.13s; }
-    .nav-dropdown-panel.active > *:nth-child(3) { animation-delay: 0.20s; }
-    .nav-dropdown-panel.active > *:nth-child(4) { animation-delay: 0.27s; }
-    .nav-dropdown-panel.active > *:nth-child(5) { animation-delay: 0.34s; }
-    .nav-dropdown-panel.active > *:nth-child(6) { animation-delay: 0.41s; }
-    .nav-dropdown-panel.active > *:nth-child(7) { animation-delay: 0.48s; }
+    .nav-dropdown-panel.active > *:nth-child(1) { animation-delay: 0.1s; }
+    .nav-dropdown-panel.active > *:nth-child(2) { animation-delay: 0.25s; }
+    .nav-dropdown-panel.active > *:nth-child(3) { animation-delay: 0.4s; }
+    .nav-dropdown-panel.active > *:nth-child(4) { animation-delay: 0.55s; }
+    .nav-dropdown-panel.active > *:nth-child(5) { animation-delay: 0.7s; }
+    .nav-dropdown-panel.active > *:nth-child(6) { animation-delay: 0.85s; }
+    .nav-dropdown-panel.active > *:nth-child(7) { animation-delay: 1.0s; }
     @keyframes dropIn {
-      from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+      from { opacity: 0; transform: translateY(-40px) scale(0.96); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
     @media (max-width: 767px) {
@@ -1415,6 +1422,44 @@
         justify-content: center;
       }
     }
+
+    /* Footer */
+    footer {
+      background-color: var(--color-brown);
+      color: #f7f1ea;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6rem;
+      overflow: clip;
+      padding: 6.4rem 3.2rem 4.8rem;
+    }
+    .footer-top {
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+    .footer-nav { display: flex; gap: 3.2rem; }
+    .footer-nav ul { list-style: none; display: flex; flex-shrink: 0; flex-direction: column; align-items: flex-start; min-width: 12rem; }
+    .footer-nav h3 { font-family: var(--font-magic-ui); font-size: 1.2rem; margin-bottom: 1.2rem; opacity: 0.5; line-height: 140%; }
+    .footer-nav li a { font-family: var(--font-magic-ui); font-size: 1.2rem; line-height: 200%; color: #f7f1ea; transition: opacity 0.2s; }
+    .footer-nav li a:hover { opacity: 0.8; }
+    .footer-left { display: flex; width: 100%; max-width: 100%; align-items: center; justify-content: flex-start; }
+    .footer-newsletter form { display: flex; height: 5.6rem; gap: 0.4rem; border-radius: 10rem; border: 1px solid rgba(245,240,235,0.2); padding: 0.3rem 0.4rem 0.3rem 2rem; }
+    .footer-newsletter input { flex: 1; background: transparent; color: #f7f1ea; font-family: var(--font-magic-ui); font-size: 1.4rem; min-width: 15rem; border: none; outline: none; }
+    .footer-newsletter input::placeholder { color: rgba(245,240,235,0.5); }
+    .footer-newsletter button { display: flex; align-items: center; justify-content: center; height: 4.8rem; padding: 0 2rem; border-radius: 10rem; border: none; background-color: rgba(245,240,235,0.15); color: #f7f1ea; cursor: pointer; font-family: var(--font-magic-ui); font-size: 1.4rem; transition: opacity 0.2s; }
+    .footer-newsletter button:hover { opacity: 0.9; }
+    .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+    .footer-large-text { width: 100%; opacity: 0.15; display: block; }
+    .footer-large-text text { font-family: Ninna, Georgia, serif; font-weight: 400; text-transform: uppercase; fill: #f7f1ea; }
+    .footer-copyright { font-family: var(--font-magic-ui); font-size: 1.1rem; opacity: 0.4; letter-spacing: 0.02em; }
+    @media (max-width: 767px) {
+      .footer-top { flex-direction: column; }
+      .footer-nav { display: grid; grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1433,7 +1478,7 @@
           </a>
           <div class="navbar-side">
             <a class="navbar-link" href="about.html" onmouseenter="navClose()"><span class="pill-bg"></span>About</a>
-            <a class="navbar-link" href="#" onmouseenter="navClose()"><span class="pill-bg"></span>Contact</a>
+            <a class="navbar-link" href="contact.html" onmouseenter="navClose()"><span class="pill-bg"></span>Contact</a>
           </div>
         </div>
         <!-- Dropdown content -->
@@ -1464,6 +1509,55 @@
 
     </div>
   </main>
+
+  <footer>
+    <div class="footer-top">
+      <nav class="footer-nav">
+        <ul>
+          <h3 style="opacity:0.5">Services</h3>
+          <li><a href="#">Network</a></li>
+          <li><a href="#">Light</a></li>
+          <li><a href="#">Sound</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Climate</a></li>
+          <li><a href="#">Intelligence</a></li>
+        </ul>
+        <ul>
+          <h3 style="opacity:0.5">Company</h3>
+          <li><a href="index.html">Projects</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <ul>
+          <h3 style="opacity:0.5">Service Area</h3>
+          <li>San Francisco</li>
+          <li>Peninsula</li>
+          <li>South Bay</li>
+          <li>East Bay</li>
+        </ul>
+        <ul>
+          <h3 style="opacity:0.5">Connect</h3>
+          <li><a href="https://www.instagram.com/livingconvenience" target="_blank">Instagram</a></li>
+          <li><a href="tel:+14156523100">(415) 652-3100</a></li>
+          <li><a href="mailto:info@livingconvenience.com">info@livingconvenience.com</a></li>
+        </ul>
+      </nav>
+      <div class="footer-left">
+        <div class="footer-newsletter">
+          <form onsubmit="return false;">
+            <input type="email" placeholder="Email" name="email"/>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <svg class="footer-large-text" viewBox="0 0 1000 100" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="82" font-size="100" textLength="1000" lengthAdjust="spacingAndGlyphs">LIVING CONVENIENCE</text>
+      </svg>
+      <p class="footer-copyright">&copy; 2026 Living Convenience &bull; All Rights Reserved</p>
+    </div>
+  </footer>
 
   <!-- ==================== JavaScript ==================== -->
   <script>
