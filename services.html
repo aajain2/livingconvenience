@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#F4EEE6"/>
+  <title>Services — Living Convenience</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <style>
+    @font-face { font-family: MagicUIPro; src: url(assets/magicui.woff2) format("woff2"); font-display: swap; font-weight: 400; font-style: normal; }
+    @font-face { font-family: Ninna; src: url(assets/ninna-trials/Ninna-Regular.otf) format("opentype"); font-display: swap; font-weight: 400; font-style: normal; }
+    @font-face { font-family: Ninna; src: url(assets/ninna-trials/Ninna-Italic.otf) format("opentype"); font-display: swap; font-weight: 400; font-style: italic; }
+
+    :root {
+      --font-magic-ui: "MagicUIPro", sans-serif;
+      --font-ninna: "Ninna", serif;
+      --color-background: #F4EEE6;
+      --color-beige: #f7f1ea;
+      --color-brown: #2b1b1b;
+      --color-text-dark: #2e1a1b;
+      --color-light-grey: #fcfbf7;
+      --color-green-acid: #42e65c;
+      --color-placeholder: #d5cec6;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 10px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { font-family: var(--font-magic-ui); background: var(--color-background); color: var(--color-text-dark); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ========== Shared typography ========== */
+    .svc-section-title {
+      font-family: var(--font-ninna);
+      font-weight: 400;
+      font-size: clamp(4.8rem, 7vw, 9rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--color-text-dark);
+    }
+    .svc-poetic {
+      font-family: var(--font-magic-ui);
+      font-size: 1.45rem;
+      line-height: 180%;
+      letter-spacing: 0.01em;
+      opacity: 0.5;
+    }
+    .svc-body {
+      font-family: var(--font-magic-ui);
+      font-size: 1.5rem;
+      line-height: 185%;
+      letter-spacing: 0.005em;
+      color: var(--color-text-dark);
+      opacity: 0.75;
+    }
+    .svc-caps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 4rem;
+      gap: 0;
+    }
+    .svc-caps span {
+      font-family: var(--font-magic-ui);
+      font-size: 1.15rem;
+      letter-spacing: 0.03em;
+      line-height: 100%;
+      opacity: 0.4;
+      white-space: nowrap;
+    }
+    .svc-caps .dot {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--color-text-dark); opacity: 0.2;
+      margin: 0 1.2rem; flex-shrink: 0;
+    }
+
+    /* Gray placeholder boxes */
+    .ph {
+      background: var(--color-placeholder);
+      border-radius: 0.4rem;
+      width: 100%;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+    /* ==========================================================
+       SECTION 1 — NETWORK
+       Aman Interiors style: big title, then split (sticky left / right)
+       with a full-width image above
+       ========================================================== */
+    #network { padding: 16rem 0 0; }
+
+    .net-fullimg {
+      width: 100%;
+      padding: 0 4.8rem;
+    }
+    .net-fullimg .ph { height: 65vh; min-height: 40rem; }
+
+    .net-title {
+      padding: 8rem 4.8rem 2rem;
+    }
+
+    .net-split {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      padding: 2rem 4.8rem 14rem;
+      align-items: start;
+    }
+    .net-left {
+      position: sticky;
+      top: 12rem;
+    }
+    .net-right {
+      max-width: 54rem;
+    }
+
+
+    /* ==========================================================
+       SECTION 2 — LIGHT
+       Centered title + subtitle, then large-left-image + right-text,
+       then a pair of images below (small + big, offset)
+       ========================================================== */
+    #light { padding: 0; }
+
+    .light-header {
+      text-align: center;
+      padding: 0 4.8rem 6rem;
+      max-width: 70rem;
+      margin: 0 auto;
+    }
+    .light-header .svc-poetic { margin-top: 2.4rem; }
+
+    .light-main {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3.2rem;
+      padding: 0 4.8rem;
+      align-items: start;
+    }
+    .light-main .ph { height: 72rem; }
+    .light-main-text {
+      padding-top: 18rem;
+    }
+    .light-main-text .svc-body { max-width: 38rem; }
+
+    .light-pair {
+      display: grid;
+      grid-template-columns: 0.45fr 0.55fr;
+      gap: 3.2rem;
+      padding: 6rem 4.8rem 14rem;
+      align-items: end;
+    }
+    .light-pair .ph:first-child { height: 36rem; }
+    .light-pair .ph:last-child { height: 50rem; }
+
+
+    /* ==========================================================
+       SECTION 3 — SOUND
+       Right-aligned title block, then full-width image,
+       then 3-column grid with text left
+       ========================================================== */
+    #sound { padding: 0; }
+
+    .sound-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0 4.8rem 6rem;
+      text-align: right;
+    }
+    .sound-header .svc-poetic { margin-top: 2rem; max-width: 30rem; }
+
+    .sound-wide {
+      padding: 0 4.8rem;
+    }
+    .sound-wide .ph { height: 55vh; min-height: 36rem; }
+
+    .sound-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3.2rem;
+      padding: 6rem 4.8rem 0;
+      align-items: start;
+    }
+    .sound-grid .ph { height: 48rem; }
+    .sound-text {
+      padding: 4rem 4.8rem 14rem;
+      max-width: 60rem;
+    }
+
+
+    /* ==========================================================
+       SECTION 4 — SECURITY
+       Two staggered images side by side with right-text
+       (like the Aman Niseko building + snow layout)
+       ========================================================== */
+    #security { padding: 0; }
+
+    .sec-intro {
+      text-align: center;
+      padding: 0 4.8rem 8rem;
+      max-width: 66rem;
+      margin: 0 auto;
+    }
+    .sec-intro .svc-body { margin-top: 3rem; }
+
+    .sec-layout {
+      display: grid;
+      grid-template-columns: 0.4fr 0.6fr;
+      gap: 4rem;
+      padding: 0 4.8rem;
+      align-items: start;
+    }
+    .sec-layout-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
+    .sec-layout-left .ph:first-child { height: 50rem; }
+    .sec-layout-left .svc-body { max-width: 36rem; padding: 0 0.4rem; }
+    .sec-layout-right .ph { height: 70rem; }
+
+    .sec-caps-row {
+      padding: 5rem 4.8rem 14rem;
+    }
+
+
+    /* ==========================================================
+       SECTION 5 — CLIMATE
+       Full-width tall image, then Aman Interiors style split,
+       then single centered image
+       ========================================================== */
+    #climate { padding: 0; }
+
+    .clim-hero {
+      padding: 0;
+    }
+    .clim-hero .ph { height: 80vh; min-height: 48rem; }
+
+    .clim-split {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      padding: 8rem 4.8rem 6rem;
+      align-items: start;
+    }
+    .clim-left { position: sticky; top: 12rem; }
+
+    .clim-single {
+      padding: 0 12rem 14rem;
+    }
+    .clim-single .ph { height: 45rem; }
+
+
+    /* ==========================================================
+       SECTION 6 — INTELLIGENCE
+       Big title spanning full width, two-column text,
+       then 3 cards with placeholders and captions
+       (like the Aman "Discover more" section)
+       ========================================================== */
+    #intelligence { padding: 0; }
+
+    .intel-title {
+      padding: 0 4.8rem 4rem;
+    }
+
+    .intel-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 0 4.8rem 8rem;
+      align-items: start;
+    }
+    .intel-text .svc-poetic { padding-top: 1rem; }
+    .intel-text .svc-body { max-width: 48rem; }
+
+    .intel-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3.2rem;
+      padding: 0 4.8rem 4rem;
+    }
+    .intel-card .ph { height: 44rem; margin-bottom: 2rem; }
+    .intel-card-title {
+      font-family: var(--font-ninna);
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 130%;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .intel-card-desc {
+      font-family: var(--font-magic-ui);
+      font-size: 1.3rem;
+      line-height: 170%;
+      opacity: 0.6;
+      max-width: 32rem;
+    }
+
+    .intel-caps-row {
+      padding: 4rem 4.8rem 14rem;
+    }
+
+
+    /* ========== Responsive ========== */
+    @media (max-width: 960px) {
+      .net-split { grid-template-columns: 1fr; }
+      .net-left { position: relative; top: auto; }
+      .light-main { grid-template-columns: 1fr; }
+      .light-main-text { padding-top: 0; }
+      .light-pair { grid-template-columns: 1fr 1fr; }
+      .sound-grid { grid-template-columns: 1fr 1fr; }
+      .sec-layout { grid-template-columns: 1fr; }
+      .sec-layout-right .ph { height: 50rem; }
+      .clim-split { grid-template-columns: 1fr; }
+      .clim-left { position: relative; top: auto; }
+      .clim-single { padding: 0 4.8rem 14rem; }
+      .intel-text { grid-template-columns: 1fr; }
+      .intel-cards { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 767px) {
+      #network { padding-top: 12rem; }
+      .net-fullimg, .net-title, .net-split,
+      .light-header, .light-main, .light-pair,
+      .sound-header, .sound-wide, .sound-grid, .sound-text,
+      .sec-intro, .sec-layout, .sec-caps-row,
+      .clim-split, .clim-single,
+      .intel-title, .intel-text, .intel-cards, .intel-caps-row {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+      .light-main .ph { height: 44rem; }
+      .light-pair .ph:first-child { height: 24rem; }
+      .light-pair .ph:last-child { height: 32rem; }
+      .sound-grid { grid-template-columns: 1fr; }
+      .sound-grid .ph { height: 32rem; }
+      .sec-layout-left .ph:first-child { height: 32rem; }
+      .sec-layout-right .ph { height: 40rem; }
+      .clim-hero .ph { height: 50vh; }
+      .clim-single .ph { height: 28rem; }
+      .intel-cards { grid-template-columns: 1fr; }
+      .intel-card .ph { height: 28rem; }
+    }
+  </style>
+</head>
+<body>
+  <script src="navbar.js"></script>
+
+  <main>
+
+    <!-- ======================================================
+         SECTION 1: NETWORK
+         Layout: full-width image, big title, Aman split (sticky left / right)
+         ====================================================== -->
+    <section id="network">
+
+      <div class="net-fullimg reveal">
+        <div class="ph"></div>
+      </div>
+
+      <div class="net-title reveal">
+        <h2 class="svc-section-title">Network</h2>
+      </div>
+
+      <div class="net-split">
+        <div class="net-left reveal">
+          <p class="svc-poetic">The invisible backbone</p>
+          <p class="svc-poetic" style="margin-top:1rem">Everything starts here</p>
+        </div>
+        <div class="net-right reveal">
+          <p class="svc-body">Every smart device in your home is only as reliable as the network underneath it. We design and deploy enterprise-grade wired and wireless networks built for the demands of a fully automated residence. Structured cabling, managed switches, commercial-grade access points, and dedicated VLANs that isolate your IoT devices from your personal traffic. Every cable run is tested, labeled, and documented. Every rack is built to the same standard we held in commercial data centers. If walls can't be opened, we engineer around the constraint without compromising performance. We also design, source, install, and configure your routing, switching, and wireless infrastructure end to end. You don't need to think about the equipment unless you want to. Wi-Fi 7, seamless roaming, full property coverage indoors and out.</p>
+          <div class="svc-caps">
+            <span>Structured Cabling</span><div class="dot"></div>
+            <span>Rack Design</span><div class="dot"></div>
+            <span>Managed Switching</span><div class="dot"></div>
+            <span>VLANs</span><div class="dot"></div>
+            <span>Wi-Fi 7</span><div class="dot"></div>
+            <span>IoT Network Isolation</span><div class="dot"></div>
+            <span>Full Documentation</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         SECTION 2: LIGHT
+         Layout: centered title, large left image + right text,
+         then a pair of offset images
+         ====================================================== -->
+    <section id="light">
+
+      <div class="light-header reveal">
+        <h2 class="svc-section-title">Light</h2>
+        <p class="svc-poetic">Architecture after dark<br>Light in layers, then layer in control</p>
+      </div>
+
+      <div class="light-main">
+        <div class="ph reveal"></div>
+        <div class="light-main-text reveal">
+          <p class="svc-body">The right lighting transforms a home more than any other single system. We design layered lighting environments where color temperature, intensity, and shade position all respond to a single command, tuned for the task at hand: cooking, entertaining, reading, sleeping. Tunable white fixtures shift from cool and energizing in the morning to warm and restful at night. Dimmers are matched to every fixture so there is no hum, no flicker, just clean light at every level. Motorized shades work in concert with your lighting, responding to time of day, season, or a scene you define. Outdoor lighting is designed with the same care: pathways that guide you safely through transitions, landscape lighting that accentuates architectural details and textures, and full Dark Sky compliance where required. Start with a few rooms or do the entire property. Every phase connects to the master plan.</p>
+          <div class="svc-caps">
+            <span>Tunable White</span><div class="dot"></div>
+            <span>Ketra</span><div class="dot"></div>
+            <span>Lutron</span><div class="dot"></div>
+            <span>Motorized Shading</span><div class="dot"></div>
+            <span>Landscape Lighting</span><div class="dot"></div>
+            <span>Dark Sky Compliance</span><div class="dot"></div>
+            <span>Scene Design</span><div class="dot"></div>
+            <span>Circadian Programming</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="light-pair">
+        <div class="ph reveal"></div>
+        <div class="ph reveal"></div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         SECTION 3: SOUND
+         Layout: right-aligned title, full-width image,
+         3-column images, then left-aligned text
+         ====================================================== -->
+    <section id="sound">
+
+      <div class="sound-header reveal">
+        <h2 class="svc-section-title">Sound</h2>
+        <p class="svc-poetic">Invisible when idle, immersive when called<br>Music and video, your way</p>
+      </div>
+
+      <div class="sound-wide reveal">
+        <div class="ph"></div>
+      </div>
+
+      <div class="sound-grid">
+        <div class="ph reveal"></div>
+        <div class="ph reveal"></div>
+        <div class="ph reveal"></div>
+      </div>
+
+      <div class="sound-text reveal">
+        <p class="svc-body">We design audio and video systems around how you actually live. Morning news in the kitchen, vinyl in the den, surround sound in the theater, ambient music on the patio. Distributed whole-home audio lets you play different sources in every zone or group them together for a single experience across the property. Speakers can be architectural and invisible, flush-mounted into ceilings and walls, or they can be statement pieces in a dedicated listening room. We handle everything from simple multi-room distribution to full theater builds with projection, acoustics, and hidden equipment. Video walls that tile a single source across multiple displays or run independent feeds on each screen. We don't tie you to a single manufacturer. We test the major platforms, explain the tradeoffs, and help you choose what fits your home and your listening habits.</p>
+        <div class="svc-caps">
+          <span>Distributed Audio</span><div class="dot"></div>
+          <span>Hidden Speakers</span><div class="dot"></div>
+          <span>Home Theater</span><div class="dot"></div>
+          <span>Video Distribution</span><div class="dot"></div>
+          <span>Video Walls</span><div class="dot"></div>
+          <span>Multi-Zone Control</span><div class="dot"></div>
+          <span>Sonos</span><div class="dot"></div>
+          <span>Dedicated Listening Rooms</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         SECTION 4: SECURITY
+         Layout: centered intro, then two staggered columns
+         (small image + caption left, tall image right — Aman Niseko style)
+         ====================================================== -->
+    <section id="security">
+
+      <div class="sec-intro reveal">
+        <h2 class="svc-section-title">Security</h2>
+        <p class="svc-body">Beyond the alarm panel. Protection that thinks with you.</p>
+      </div>
+
+      <div class="sec-layout">
+        <div class="sec-layout-left">
+          <div class="ph reveal"></div>
+          <p class="svc-body reveal">A complete security system is more than an alarm. We unify door stations, video surveillance, smart locks, gate access control, fire protection, and intrusion detection into one coordinated system. When you arrive home, your geofence can unlock the gate, light a path from the driveway through the house, disarm the alarm, and start your evening playlist. When you leave, a single button arms everything, locks every door, lowers the temperature, closes the shades, and confirms it is done. If a door is left open, you will know. We also address the layer most integrators ignore: cybersecurity. Your IoT devices, cameras, and access points are isolated and hardened so your home network is not a vulnerability. If you already work with a security company you trust, we coordinate with them to make sure everything connects.</p>
+        </div>
+        <div class="sec-layout-right reveal">
+          <div class="ph"></div>
+        </div>
+      </div>
+
+      <div class="sec-caps-row reveal">
+        <div class="svc-caps">
+          <span>Video Surveillance</span><div class="dot"></div>
+          <span>Smart Locks</span><div class="dot"></div>
+          <span>Gate Access</span><div class="dot"></div>
+          <span>Geofencing</span><div class="dot"></div>
+          <span>Fire Protection</span><div class="dot"></div>
+          <span>Alarm Integration</span><div class="dot"></div>
+          <span>Cybersecurity</span><div class="dot"></div>
+          <span>Door Stations</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         SECTION 5: CLIMATE
+         Layout: edge-to-edge hero image, Aman split text,
+         single centered image
+         ====================================================== -->
+    <section id="climate">
+
+      <div class="clim-hero reveal">
+        <div class="ph"></div>
+      </div>
+
+      <div class="clim-split">
+        <div class="clim-left reveal">
+          <h2 class="svc-section-title">Climate</h2>
+          <p class="svc-poetic" style="margin-top:2.4rem">Comfort that anticipates</p>
+          <p class="svc-poetic" style="margin-top:1rem">Temperature, air, energy</p>
+        </div>
+        <div class="reveal" style="max-width:52rem;">
+          <p class="svc-body">Climate is the system you notice only when it fails. We design HVAC integration, smart thermostat programming, and zoned temperature control so every room in your home is exactly where you want it, when you want it. Systems respond to occupancy, time of day, season, and weather forecasts. Pair climate with your shading system and the house manages solar gain automatically, keeping rooms cool without running the AC. We also work with solar, battery storage, and EV charging infrastructure for clients building toward energy independence. Whether you are retrofitting a single thermostat or designing whole-home climate automation from the ground up, we make sure the system is invisible, efficient, and responsive.</p>
+          <div class="svc-caps">
+            <span>Smart Thermostats</span><div class="dot"></div>
+            <span>Zoned HVAC</span><div class="dot"></div>
+            <span>Occupancy Sensing</span><div class="dot"></div>
+            <span>Solar Integration</span><div class="dot"></div>
+            <span>Battery Storage</span><div class="dot"></div>
+            <span>EV Charging</span><div class="dot"></div>
+            <span>Energy Monitoring</span><div class="dot"></div>
+            <span>Shade Coordination</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="clim-single reveal">
+        <div class="ph"></div>
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================
+         SECTION 6: INTELLIGENCE
+         Layout: big title, two-column text, then 3 editorial cards
+         with captions (Aman "Discover more" style)
+         ====================================================== -->
+    <section id="intelligence">
+
+      <div class="intel-title reveal">
+        <h2 class="svc-section-title">Intelligence</h2>
+      </div>
+
+      <div class="intel-text">
+        <div class="reveal">
+          <p class="svc-poetic">One system, one mind</p>
+          <p class="svc-poetic" style="margin-top:1rem">Where everything converges</p>
+        </div>
+        <div class="reveal">
+          <p class="svc-body">This is the layer that ties every discipline together. A control system replaces the dozen apps on your phone with a single interface: a wall panel, a tabletop screen, a remote, or your phone. One app to manage every light, speaker, lock, camera, shade, and thermostat in your home. From there, we build coordinated scenes. Tap "Movie" and the projector wakes, the sources switch, the lights dim, the shades drop, and the temperature adjusts. Tap "Goodnight" and every door locks, the alarm arms, the lights fade, and the house confirms it is secure. Then comes the next layer: automation that responds to conditions. Time of day, season, weather, occupancy, your calendar. The system learns how you live and adapts accordingly. As AI moves from the cloud to the edge, with voice agents, predictive models, and on-device processing, the homes we build today are ready. Open protocols like Matter and Thread. Infrastructure with headroom. No rip and replace in three years.</p>
+        </div>
+      </div>
+
+      <div class="intel-cards">
+        <div class="intel-card reveal">
+          <div class="ph"></div>
+          <h3 class="intel-card-title">Scenes</h3>
+          <p class="intel-card-desc">One command orchestrates every system in your home. Lights, shades, climate, audio, locks — all responding together.</p>
+        </div>
+        <div class="intel-card reveal">
+          <div class="ph"></div>
+          <h3 class="intel-card-title">Automation</h3>
+          <p class="intel-card-desc">Conditional logic that responds to time, presence, weather, and calendar. The house adapts before you ask.</p>
+        </div>
+        <div class="intel-card reveal">
+          <div class="ph"></div>
+          <h3 class="intel-card-title">Future-Ready</h3>
+          <p class="intel-card-desc">Matter, Thread, and open protocols. Built for what comes next without ripping out what works today.</p>
+        </div>
+      </div>
+
+      <div class="intel-caps-row reveal">
+        <div class="svc-caps">
+          <span>Savant</span><div class="dot"></div>
+          <span>Crestron</span><div class="dot"></div>
+          <span>Voice Control</span><div class="dot"></div>
+          <span>Scene Design</span><div class="dot"></div>
+          <span>Conditional Automation</span><div class="dot"></div>
+          <span>Matter</span><div class="dot"></div>
+          <span>Thread</span><div class="dot"></div>
+          <span>Predictive Automation</span><div class="dot"></div>
+          <span>Calendar Integration</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="footer.js"></script>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Hash scroll offset for fixed navbar
+    if (window.location.hash) {
+      setTimeout(() => {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+        }
+      }, 150);
+    }
+  </script>
+</body>
+</html>
