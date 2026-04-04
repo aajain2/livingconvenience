@@ -71,8 +71,10 @@
       object-fit: cover;
       transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     }
-    .svc-card:hover .svc-card-img img {
-      transform: scale(1.04);
+    @media (hover: hover) {
+      .svc-card:hover .svc-card-img img {
+        transform: scale(1.04);
+      }
     }
     .svc-card-title {
       font-family: var(--font-ninna);
@@ -117,8 +119,13 @@
     /* ========== Responsive ========== */
     @media (max-width: 767px) {
       .svc-page-header { padding: 12rem 2rem 4rem; }
-      .svc-carousel { padding: 0 2rem 6rem; gap: 2rem; }
-      .svc-card { width: 75vw; max-width: 32rem; }
+      .svc-carousel { padding: 0 2rem 6rem; gap: 2rem; cursor: default; }
+      .svc-carousel:active { cursor: default; }
+      .svc-card { width: 80vw; max-width: 32rem; }
+      .svc-card-desc { font-size: 1.4rem; padding: 0 0.8rem; }
+      .svc-carousel-wrapper::after { width: 6rem; }
+      .svc-progress { padding: 2rem 2rem 8rem; }
+      .svc-progress-seg { height: 3px; padding: 8px 0; background-clip: content-box; }
     }
   </style>
 </head>
@@ -127,29 +134,29 @@
 
   <main>
     <div class="svc-carousel-wrapper">
-    <div class="svc-carousel" style="padding-top: 12rem;">
+    <div class="svc-carousel" style="padding-top: 12rem; padding-left: 3.2rem;">
       <a class="svc-card" href="#">
-        <div class="svc-card-img"><img src="assets/service-network.png" alt="Network"/></div>
+        <div class="svc-card-img"><img src="assets/service-network.avif" alt="Network"/></div>
         <h2 class="svc-card-title">Network</h2>
         <p class="svc-card-desc">Every smart device in your home is only as reliable as the network underneath it. We design and deploy enterprise-grade wired and wireless networks for fully automated residences. Structured cabling, managed switches, commercial access points, dedicated VLANs that isolate your IoT traffic from your personal devices. Every run tested, labeled, documented. Wi-Fi 7, seamless roaming, full property coverage indoors and out. Your network will be the last thing that fails and the first thing that scales.</p>
       </a>
       <a class="svc-card" href="#">
-        <div class="svc-card-img"><img src="assets/service-lighting.png" alt="Light"/></div>
+        <div class="svc-card-img"><img src="assets/service-lighting.avif" alt="Light"/></div>
         <h2 class="svc-card-title">Light</h2>
         <p class="svc-card-desc">Light transforms a home more than any other single system. We design layered environments where color temperature, intensity, and shade position all respond to a single command. Tunable white fixtures shift from cool and energizing in the morning to warm and restful at night. Dimmers matched to every fixture. No hum. No flicker. Motorized shades work in concert with your lighting, responding to time of day, season, or a scene you define. Outdoor lighting designed with equal care: pathways, landscape accents, full Dark Sky compliance. Start with a single room or do the entire property.</p>
       </a>
       <a class="svc-card" href="#">
-        <div class="svc-card-img"><img src="assets/service-sound.png" alt="Sound"/></div>
+        <div class="svc-card-img"><img src="assets/service-sound.avif" alt="Sound"/></div>
         <h2 class="svc-card-title">Sound</h2>
         <p class="svc-card-desc">We design audio and video systems around how you actually live. Morning news in the kitchen. Vinyl in the den. Surround sound in the theater. Ambient music on the patio. Distributed whole-home audio lets you play different sources in every zone or unify the entire property into one experience. Speakers can disappear into ceilings and walls or become statement pieces in a dedicated listening room. We handle everything from multi-room distribution to full theater builds with projection, acoustics, and concealed equipment.</p>
       </a>
       <a class="svc-card" href="#">
-        <div class="svc-card-img"><img src="assets/service-security.png" alt="Security"/></div>
+        <div class="svc-card-img"><img src="assets/service-security.avif" alt="Security"/></div>
         <h2 class="svc-card-title">Security</h2>
         <p class="svc-card-desc">A complete security system is more than an alarm panel. We unify door stations, video surveillance, smart locks, gate access, fire protection, and intrusion detection into one coordinated system. Arrive home and your geofence unlocks the gate, lights a path through the house, disarms the alarm, and starts your evening playlist. Leave and a single button arms everything, locks every door, lowers the temperature, closes the shades, and confirms it is done. We also address cybersecurity — your cameras, IoT devices, and access points are isolated and hardened.</p>
       </a>
       <a class="svc-card" href="#">
-        <div class="svc-card-img"><img src="assets/service-climate.png" alt="Climate"/></div>
+        <div class="svc-card-img"><img src="assets/service-climate.avif" alt="Climate"/></div>
         <h2 class="svc-card-title">Climate</h2>
         <p class="svc-card-desc">Climate is the system you notice only when it fails. We design HVAC integration, smart thermostat programming, and zoned temperature control so every room is exactly where you want it, when you want it. Systems respond to occupancy, time of day, season, and weather data automatically. Pair climate with your shading system and the house manages solar gain on its own. Integrate solar, battery storage, and EV charging for full energy independence. The system will be invisible, efficient, and completely responsive to how you live.</p>
       </a>

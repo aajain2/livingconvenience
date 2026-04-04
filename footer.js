@@ -86,8 +86,13 @@
       font-size: 1.1rem; opacity: 0.4; letter-spacing: 0.02em;
     }
     @media (max-width: 767px) {
-      .footer-top { flex-direction: column; }
-      .footer-nav { display: grid; grid-template-columns: 1fr 1fr; }
+      footer { padding: 4.8rem 2rem 3.2rem; gap: 4rem; }
+      .footer-top { flex-direction: column; gap: 3.2rem; }
+      .footer-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; }
+      .footer-nav ul { min-width: 0; }
+      .footer-left { justify-content: center; }
+      .footer-newsletter form { width: 100%; }
+      .footer-newsletter input { min-width: 0; flex: 1; }
     }
   `;
 

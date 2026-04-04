@@ -157,8 +157,11 @@
     @media (max-width: 767px) {
       .navbar { top: 0.8rem; max-width: calc(100% - 1.6rem); }
       .navbar-link { font-size: 1.2rem; padding: 0 1rem; }
-      .navbar-logo svg { height: 1.2rem; }
+      .navbar-logo span { font-size: 1.2rem !important; }
       .studio-card { height: 16rem; }
+      .studio-card:hover { transform: none; }
+      .studio-card:hover .studio-card-img { transform: none; }
+      .studio-card:active { transform: scale(0.985); }
     }
   `;
 
@@ -175,7 +178,7 @@
         <div class="navbar-topbar">
           <div class="navbar-side">
             <a class="navbar-link" href="services.html" onmouseenter="navClose()"><span class="pill-bg"></span>Services</a>
-            <a class="navbar-link" href="#" data-menu="projects" onmouseenter="navOpen('projects',this)" onclick="event.preventDefault(); navOpen('projects',this);"><span class="pill-bg"></span>Projects</a>
+            <a class="navbar-link" href="#" data-menu="projects" onclick="event.preventDefault(); navOpen('projects',this);"><span class="pill-bg"></span>Projects</a>
           </div>
           <a class="navbar-logo" href="index.html" onmouseenter="navClose()">
             <span style="font-family:var(--font-ninna);font-weight:400;font-size:1.4rem;letter-spacing:0.02em;text-transform:uppercase">Living Convenience</span>
@@ -200,7 +203,10 @@
   // Insert navbar as first child of <body>
   document.body.insertAdjacentHTML('afterbegin', html);
 
-  // ── Sliding pill ──
+  // ── Detect touch device ──
+  var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  // ── Sliding pill (desktop only) ──
   const topbar = document.querySelector('.navbar-topbar');
   const pill = document.createElement('div');
   pill.className = 'nav-pill-slider';
@@ -209,6 +215,7 @@
   let pillTimeout = null;
 
   function movePill(linkEl) {
+    if (isTouch) return;
     if (pillTimeout) { clearTimeout(pillTimeout); pillTimeout = null; }
     const topbarRect = topbar.getBoundingClientRect();
     const linkRect = linkEl.getBoundingClientRect();
@@ -239,7 +246,11 @@
   let curMenu = null, curLink = null;
 
   window.navOpen = function (name, el) {
-    if (curMenu === name) return;
+    // On mobile, toggle instead of one-way open
+    if (curMenu === name) {
+      window.navClose();
+      return;
+    }
     if (curLink) curLink.classList.remove('active');
     el.classList.add('active');
     curLink = el;
@@ -275,4 +286,23 @@
     glass.style.height = '4.8rem';
     glass.classList.remove('expanded');
   };
+
+  // ── Desktop: open Projects dropdown on hover ──
+  if (!isTouch) {
+    var projectsLink = document.querySelector('[data-menu="projects"]');
+    if (projectsLink) {
+      projectsLink.addEventListener('mouseenter', function () {
+        window.navOpen('projects', projectsLink);
+      });
+    }
+  }
+
+  // ── Tap outside to close dropdown ──
+  document.addEventListener('click', function (e) {
+    if (!curMenu) return;
+    var nav = document.getElementById('nav');
+    if (!nav.contains(e.target)) {
+      window.navClose();
+    }
+  });
 })();
